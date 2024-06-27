@@ -1,0 +1,115 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_table_criteria_type
+      author: vhundred
+      changes:
+        - createTable:
+            tableName: criteria_type
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: type
+                  type: varchar(10)
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: create_table_condition
+      author: vhundred
+      changes:
+        - createTable:
+            tableName: condition
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: criteria_type_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: condition
+            baseColumnNames: criteria_type_id
+            referencedTableName: criteria_type
+            referencedColumnNames: id
+            constraintName: fk_condition_criteria
+
+  - changeSet:
+      id: create_table_filter
+      author: vhundred
+      changes:
+        - createTable:
+            tableName: filter
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+              - column:
+                  name: selection
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: create_table_criteria
+      author: vhundred
+      changes:
+        - createTable:
+            tableName: criteria
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: condition_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: value
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: filter_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: criteria
+            baseColumnNames: filter_id
+            referencedTableName: filter
+            referencedColumnNames: id
+            constraintName: fk_criteria_filter
