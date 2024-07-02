@@ -10,7 +10,7 @@ The "Filter" application demonstrates how to use filters and criteria with a Spr
 
 - Java 17
 - Spring Boot 3.3.1
-- PostgreSQL 13
+- PostgreSQL 15
 - React (for the frontend)
 
 ## Modules
