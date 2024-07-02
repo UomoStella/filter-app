@@ -1,0 +1,45 @@
+.container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+}
+
+.list-group-item {
+  cursor: pointer;
+}
+
+.modal {
+  display: block; /* Ensure the modal is displayed */
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+}
+
+.modal-dialog {
+  max-width: 800px;
+  margin: 100px auto;
+}
+
+.modal-content {
+  position: relative;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  padding: 10px 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+.modal-title {
+  margin: 0;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.modal-footer {
+  padding: 10px 20px;
+  border-top: 1px solid #ddd;
+  text-align: right;
+}
