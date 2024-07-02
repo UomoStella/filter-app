@@ -41,15 +41,12 @@ const FilterList = () => {
       <ul className="list-group mt-3">
         {filters.map((filter) => (
           <li
+            onClick={() => handleShowModal(filter.id)}
+            style={{ cursor: "pointer" }}
             key={filter.id}
             className="list-group-item d-flex justify-content-between align-items-center"
           >
-            <span
-              onClick={() => handleShowModal(filter.id)}
-              style={{ cursor: "pointer" }}
-            >
-              {filter.name}
-            </span>
+            <span>{filter.name}</span>
             <span className="badge bg-primary rounded-pill">
               ID: {filter.id}
             </span>
