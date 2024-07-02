@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/filters")
@@ -24,7 +25,7 @@ public class FilterController {
     }
 
     @GetMapping("/{id}")
-    public FilterDto getFilterById(@PathVariable Long id) {
+    public FilterDto getFilterById(@PathVariable UUID id) {
         return filterService.getFilterById(id);
     }
 

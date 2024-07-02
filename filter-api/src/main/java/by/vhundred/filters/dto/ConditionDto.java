@@ -1,4 +1,6 @@
 package by.vhundred.filters.dto;
 
-public record ConditionDto(Long id, String name) {
+import java.util.UUID;
+
+public record ConditionDto(UUID id, String name) {
 }

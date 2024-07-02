@@ -1,20 +1,21 @@
 package by.vhundred.filters.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.UUID;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 @Entity
 @Table(name = "criteria")
 public class Criteria {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(updatable = false, nullable = false)
+    private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "condition_id", nullable = false)
@@ -24,5 +25,5 @@ public class Criteria {
     private String value;
 
     @Column(name = "filter_id", nullable = false)
-    private Long filterId;
+    private UUID filterId;
 }

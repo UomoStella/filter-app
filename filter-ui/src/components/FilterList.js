@@ -1,21 +1,38 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
+import { Modal, Button } from "react-bootstrap";
+import FilterDetail from "./FilterDetail";
 
 const FilterList = () => {
   const [filters, setFilters] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedFilterId, setSelectedFilterId] = useState(null);
 
   useEffect(() => {
     fetchFilters();
-  }, []);
+  }, [showModal]);
 
-  const fetchFilters = async () => {
-    try {
-      const response = await axios.get("http://localhost:8080/api/filters");
-      setFilters(response.data);
-    } catch (error) {
-      console.error("Error fetching filters:", error);
+  const fetchFilters = () => {
+    if (!showModal) {
+      axios
+        .get("http://localhost:8080/api/filters")
+        .then((response) => {
+          setFilters(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching filters:", error);
+        });
     }
+  };
+
+  const handleShowModal = (filterId = null) => {
+    setSelectedFilterId(filterId);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedFilterId(null);
   };
 
   return (
@@ -27,7 +44,12 @@ const FilterList = () => {
             key={filter.id}
             className="list-group-item d-flex justify-content-between align-items-center"
           >
-            <Link to={`/filter/${filter.id}`}>{filter.name}</Link>
+            <span
+              onClick={() => handleShowModal(filter.id)}
+              style={{ cursor: "pointer" }}
+            >
+              {filter.name}
+            </span>
             <span className="badge bg-primary rounded-pill">
               ID: {filter.id}
             </span>
@@ -36,10 +58,22 @@ const FilterList = () => {
       </ul>
 
       <div className="mt-4">
-        <Link to="/filter/" className="btn btn-primary">
+        <Button onClick={() => handleShowModal()} className="btn btn-primary">
           Add Filter
-        </Link>
+        </Button>
       </div>
+
+      <Modal show={showModal} onHide={handleCloseModal} size="lg">
+        <Modal.Header closeButton>
+          <Modal.Title>Filter Detail</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <FilterDetail
+            filterId={selectedFilterId}
+            closeModal={handleCloseModal}
+          />
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };

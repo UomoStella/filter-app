@@ -9,37 +9,72 @@
 }
 
 .modal {
-  display: block; /* Ensure the modal is displayed */
-  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: block;
+  background: rgba(0, 0, 0, 0.5);
 }
 
 .modal-dialog {
-  max-width: 800px;
+  max-width: 1000px;
   margin: 100px auto;
 }
 
 .modal-content {
   position: relative;
   background: #fff;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 0px;
 }
 
 .modal-header {
   padding: 10px 20px;
+  color: #fff;
+  background-color: #95e0de;
   border-bottom: 1px solid #ddd;
+  border-radius: 0px;
+}
+
+.modal-body {
+  padding: 0;
+  margin: 0;
 }
 
 .modal-title {
   margin: 0;
 }
 
-.modal-body {
+.modal-filter-content {
   padding: 20px;
+  max-height: 450px;
+  overflow: scroll;
 }
 
-.modal-footer {
-  padding: 10px 20px;
+.modal-filter-footer {
   border-top: 1px solid #ddd;
-  text-align: right;
+  background-color: #f1f0f0;
+  text-align: center;
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+
+.modal-filter-footer button {
+  width: 8rem;
+}
+
+button {
+  text-transform: uppercase;
+  font-size: 0.7rem;
+}
+
+button span {
+  font-weight: bold;
+}
+
+.btn-remove {
+  background-color: #ed2e7c;
+  color: #fff;
+}
+
+.btn-remove:hover,
+.btn-remove:focus {
+  background-color: #811440;
+  color: #fff;
 }

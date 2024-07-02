@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import FilterList from "./components/FilterList";
 import FilterDetail from "./components/FilterDetail";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./App.css"; // Add your custom styles
+import "./App.css";
 
 function App() {
   return (

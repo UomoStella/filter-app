@@ -8,11 +8,11 @@ import by.vhundred.filters.entity.Condition;
 import by.vhundred.filters.entity.Criteria;
 import by.vhundred.filters.entity.CriteriaType;
 import by.vhundred.filters.entity.Filter;
-import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import java.util.List;
+import java.util.UUID;
 
 @Mapper(componentModel = "spring")
 public interface FilterMapper {
@@ -26,7 +26,7 @@ public interface FilterMapper {
     CriteriaDto criteriaToCriteriaDto(Criteria criteria);
 
     @Mapping(expression = "java(findCondition(conditions, criteria.getConditionId()))", target = "condition")
-    Criteria criteriaDtoToCriteria(CriteriaDto criteria, List<Condition> conditions, Long filterId);
+    Criteria criteriaDtoToCriteria(CriteriaDto criteria, List<Condition> conditions, UUID filterId);
 
     ConditionDto conditionToConditionDto(Condition condition);
 
@@ -35,7 +35,7 @@ public interface FilterMapper {
     FilterPageDto mapCriteriaTypeByCriteriaTypeAndCriteria(CriteriaType type, List<ConditionDto> conditions);
 
 
-    default Condition findCondition(List<Condition> conditions, Long conditionId) {
+    default Condition findCondition(List<Condition> conditions, UUID conditionId) {
         return conditions.stream()
                 .filter( condition -> condition.getId().equals(conditionId))
                 .findFirst()

@@ -6,9 +6,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
-public interface CriteriaRepository extends JpaRepository<Criteria, Long> {
+public interface CriteriaRepository extends JpaRepository<Criteria, UUID> {
 
     @Query("""
             select c from Criteria c  
@@ -16,5 +17,5 @@ public interface CriteriaRepository extends JpaRepository<Criteria, Long> {
             left join co.criteriaType cT
             where c.filterId = ?1
             """)
-    List<Criteria> findAllByFilterId(Long filterId);
+    List<Criteria> findAllByFilterId(UUID filterId);
 }

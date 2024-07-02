@@ -1,19 +1,22 @@
 package by.vhundred.filters.dto;
 
-import lombok.Builder;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 import java.util.List;
+import java.util.UUID;
 
 @Data
-@Builder
 public class FilterDto {
 
-    private Long id;
+    private UUID id;
 
+    @NotEmpty(message = "Filter name must be filled in.")
     private String name;
 
     private String selection;
 
+    @Valid
     private List<CriteriaDto> criteria;
 }

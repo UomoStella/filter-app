@@ -8,11 +8,11 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: bigint
-                  autoIncrement: true
+                  type: UUID
                   constraints:
                     primaryKey: true
                     nullable: false
+                    defaultValueComputed: 'gen_random_uuid()'
               - column:
                   name: name
                   type: varchar(255)
@@ -33,11 +33,11 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: bigint
-                  autoIncrement: true
+                  type: UUID
                   constraints:
                     primaryKey: true
                     nullable: false
+                    defaultValueComputed: 'gen_random_uuid()'
               - column:
                   name: name
                   type: varchar(255)
@@ -45,7 +45,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: criteria_type_id
-                  type: bigint
+                  type: UUID
                   constraints:
                     nullable: false
         - addForeignKeyConstraint:
@@ -64,11 +64,11 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: bigint
-                  autoIncrement: true
+                  type: UUID
                   constraints:
                     primaryKey: true
                     nullable: false
+                    defaultValueComputed: 'gen_random_uuid()'
               - column:
                   name: name
                   type: varchar(255)
@@ -87,14 +87,14 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: bigint
-                  autoIncrement: true
+                  type: UUID
                   constraints:
                     primaryKey: true
                     nullable: false
+                    defaultValueComputed: 'gen_random_uuid()'
               - column:
                   name: condition_id
-                  type: bigint
+                  type: UUID
                   constraints:
                     nullable: false
               - column:
@@ -104,7 +104,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: filter_id
-                  type: bigint
+                  type: UUID
                   constraints:
                     nullable: false
         - addForeignKeyConstraint:

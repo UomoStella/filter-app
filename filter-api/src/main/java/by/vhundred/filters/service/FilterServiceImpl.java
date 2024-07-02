@@ -14,11 +14,11 @@ import by.vhundred.filters.repository.CriteriaRepository;
 import by.vhundred.filters.repository.CriteriaTypeRepository;
 import by.vhundred.filters.repository.FilterRepository;
 import lombok.AllArgsConstructor;
-import org.hibernate.mapping.Set;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -36,7 +36,7 @@ public class FilterServiceImpl implements FilterService {
     }
 
     @Override
-    public FilterDto getFilterById(Long id) {
+    public FilterDto getFilterById(UUID id) {
         Filter filter = filterRepository.findById(id).orElseThrow(() -> new RuntimeException("Filter not found"));
         List<CriteriaDto> criteriaList = criteriaRepository.findAllByFilterId(id).stream().map(filterMapper::criteriaToCriteriaDto).toList();
 
@@ -49,15 +49,12 @@ public class FilterServiceImpl implements FilterService {
         Filter filter = filterMapper.filterDtoToFilter(filterDto);
         filterRepository.save(filter);
 
-        List<Long> conditionIds = filterDto.getCriteria().stream().map(CriteriaDto::getConditionId).toList();
+        List<UUID> conditionIds = filterDto.getCriteria().stream().map(CriteriaDto::getConditionId).toList();
         List<Condition> conditions = conditionRepository.findAllById(conditionIds);
         List<Criteria> criteriaToSave = filterDto.getCriteria().stream().map(criteria -> filterMapper.criteriaDtoToCriteria(criteria, conditions, filter.getId())).toList();
 
-        if(filterDto.getId() != null) {
-            List<Criteria> criteriaToDelete = criteriaRepository.findAllByFilterId(filterDto.getId()).stream()
-                    .filter(toDelete ->
-                            criteriaToSave.stream().noneMatch(toSave -> toDelete.getId().equals(toSave.getId()))
-                    ).toList();
+        if (filterDto.getId() != null) {
+            List<Criteria> criteriaToDelete = criteriaRepository.findAllByFilterId(filterDto.getId()).stream().filter(toDelete -> criteriaToSave.stream().noneMatch(toSave -> toDelete.getId().equals(toSave.getId()))).toList();
 
             criteriaRepository.deleteAll(criteriaToDelete);
         }
@@ -71,9 +68,7 @@ public class FilterServiceImpl implements FilterService {
         final List<CriteriaType> criteriaTypes = criteriaTypeRepository.findAll();
 
         return criteriaTypes.stream().map(type -> {
-            List<ConditionDto> conditions = conditionRepository.findAllByCriteriaType(type.getId()).stream()
-                    .map(filterMapper::conditionToConditionDto)
-                    .toList();
+            List<ConditionDto> conditions = conditionRepository.findAllByCriteriaType(type.getId()).stream().map(filterMapper::conditionToConditionDto).toList();
             return filterMapper.mapCriteriaTypeByCriteriaTypeAndCriteria(type, conditions);
         }).toList();
     }
