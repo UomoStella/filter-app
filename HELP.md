@@ -30,10 +30,11 @@ Before running the application, make sure you have the following installed:
 To run the "Filter" application locally, follow these steps:
 
 1. Build and start the application using Docker Compose:
-   docker-compose up --build
+- docker-compose up --build
+   
 This command will build the Docker images if they don't exist and start the application containers.
 
 2. Access the application:
-Once the application is up and running, you can access it at:
-    Frontend: http://localhost:80
-    Backend: http://localhost:8080
+   Once the application is up and running, you can access it at:
+- Frontend: http://localhost:80
+- Backend: http://localhost:8080
