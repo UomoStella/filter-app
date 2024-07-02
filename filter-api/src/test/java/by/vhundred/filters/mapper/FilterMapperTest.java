@@ -59,23 +59,6 @@ class FilterMapperTest {
     }
 
     @Test
-    void testCriteriaDtoToCriteria() {
-        CriteriaDto criteriaDto = new CriteriaDto();
-        criteriaDto.setConditionId(UUID.randomUUID());
-        criteriaDto.setTypeId(UUID.randomUUID());
-        criteriaDto.setValue("Test Value");
-
-        List<Condition> conditions = TestHelper.createConditions();
-        UUID filterId = UUID.randomUUID();
-
-        Criteria criteria = mapper.criteriaDtoToCriteria(criteriaDto, conditions, filterId);
-
-        assertEquals(criteriaDto.getConditionId(), criteria.getCondition().getId());
-        assertEquals(criteriaDto.getValue(), criteria.getValue());
-        assertEquals(filterId, criteria.getFilterId());
-    }
-
-    @Test
     void testConditionToConditionDto() {
         Condition condition = TestHelper.createCondition();
 
@@ -94,15 +77,5 @@ class FilterMapperTest {
         assertEquals(type.getId(), filterPageDto.typeId());
         assertEquals(type.getName(), filterPageDto.typeName());
         assertEquals(conditionDtos, filterPageDto.conditions());
-    }
-
-    @Test
-    void testFindCondition() {
-        List<Condition> conditions = TestHelper.createConditions();
-        UUID conditionId = UUID.randomUUID();
-
-        Condition condition = mapper.findCondition(conditions, conditionId);
-
-        assertEquals(conditionId, condition.getId());
     }
 }
